@@ -3,7 +3,7 @@
 class PrimeKeeper {
 
     constructor() {
-        this.currentPrime = 2
+        this._currentPrime = 2
     }
 
     isPrime(candidate) {
@@ -21,25 +21,35 @@ class PrimeKeeper {
 
     nextPrime() {
         var done = false;
-        var candidate = this.currentPrime + 1
+        var candidate = this._currentPrime + 1
         while (! done ) {
             if (this.isPrime(candidate)) {
                 done = true;
-                this.currentPrime = candidate
+                this._currentPrime = candidate
             } else {
                 candidate += 1
             }
         }
         return candidate
     }
-}
 
-
-if (typeof window === 'undefined') {
-
-    var pk = new PrimeKeeper()
-    for (let i = 0; i < 100; i++) {
-        console.log(pk.nextPrime())
+    get currentPrime(){
+        return this._currentPrime
     }
 
+    set currentPrime(a){
+        this._currentPrime=a
+    }
 }
+
+var pk = new PrimeKeeper()
+console.log(pk.currentPrime)
+
+// if (typeof window === 'undefined') {
+//
+//     var pk = new PrimeKeeper()
+//     for (let i = 0; i < 100; i++) {
+//         console.log(pk.nextPrime())
+//     }
+//
+// }

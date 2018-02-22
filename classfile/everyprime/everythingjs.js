@@ -1,35 +1,23 @@
 'use strict'
 
-angular.module('MyApp', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
-.controller('AppCtrl', function($scope) {
-  $scope.title1 = 'Button';
-  $scope.title4 = 'Warn';
-  $scope.isDisabled = true;
-
-  $scope.googleUrl = 'http://google.com';
-
-});
-
-
-
-
-
-
-
-
-
 var bbody=document.querySelector('body')
 var newh1=document.createElement("H1")
 newh1.innerHTML="How many do you want?"
 // note that bbody is not a copy of the document, but a pointer.
 bbody.appendChild(newh1)
 
-var butt=document.querySelector("#primebutton")
+var butt=document.createElement("button")
+butt.innerHTML="Hit me hard"
+butt.setAttribute('id','primebutton')
+bbody.appendChild(butt)
 
 var inputField=document.createElement("input")
 inputField.setAttribute('type','text')
 bbody.insertBefore(inputField,butt)
 
+bbody.appendChild(document.createElement("div"))
+
+var aPrime=1;
 
 butt.addEventListener("click",()=>{
     /*
@@ -37,8 +25,28 @@ butt.addEventListener("click",()=>{
     alert(inputField.value)
     alert(document.querySelector('input').value)
     */
+    // var divv=document.querySelector('div')
+    //
+    //
+    // var fc = divv.firstChild;
+    // while( fc ) {
+    //     divv.removeChild( fc );
+    //     fc = divv.firstChild;
+    // }
+    // var primeTable=buildPrimeTable(document.querySelector('input').value)
+    // divv.appendChild(primeTable)
 
-    buildPrimeTable(document.querySelector('input').value)
+    var fc = divv.firstChild;
+    while( fc ) {
+        divv.removeChild( fc );
+        fc = divv.firstChild;
+    }
+    var moneyNumber=document.createElement("h1")
+    moneyNumber.setAttribute("id","nextprime")
+    aPrime=nextPrime(aPrime)
+    moneyNumber.innerHTML=aPrime
+    divv.appendChild(moneyNumber)
+
 })
 
 newh1=document.createElement("H1")
@@ -52,6 +60,14 @@ function isPrime(number){
         }
     }
     return true
+}
+
+function nextPrime(previous){
+    var interest=previous+1
+    while(!isPrime(interest)){
+        interest=interest+1
+    }
+    return interest
 }
 
 function getPrimes(howmany){
@@ -68,22 +84,9 @@ function getPrimes(howmany){
 }
 
 function buildPrimeTable(howmany){
-    var dbody=document.querySelector("body")
-    dbody.appendChild(document.createElement("div"))
-
-    var divv=document.querySelector('div')
-    divv.setAttribute('class','table-responsive')
-
-    var fc = divv.firstChild;
-    while( fc ) {
-        divv.removeChild( fc );
-        fc = divv.firstChild;
-    }
-
     var list=getPrimes(howmany)
     var outputTable=document.createElement("table")
-    outputTable.setAttribute("class","table table-striped")
-
+    outputtable.setAttribute(class,"table table-striped")
 
     for (var i=0;i<howmany;i++){
         var row = outputTable.insertRow(-1)
@@ -91,5 +94,5 @@ function buildPrimeTable(howmany){
         cell.innerHTML=list[i]
     }
 
-    divv.appendChild(outputTable)
+    return outputTable
 }
